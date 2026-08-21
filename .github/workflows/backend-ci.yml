@@ -35,6 +35,9 @@ jobs:
       - name: Run lint
         run: pipenv run lint
 
+      - name: Run lint
+        run: pipenv run lint
+
   test:
     runs-on: ubuntu-latest
 

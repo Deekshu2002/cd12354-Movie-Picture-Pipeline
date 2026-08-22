@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 function MovieDetail({ movie }) {
   const [details, setDetails] = useState(null);
+
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_MOVIE_API_URL}/movies/${movie.id}`).then((response) => {
-      setDetails(response.data);
-    });
+    axios
+      .get(`${process.env.REACT_APP_MOVIE_API_URL}/movies/${movie.id}`)
+      .then((response) => {
+        setDetails(response.data);
+      });
   }, [movie]);
 
   return (
@@ -16,5 +20,13 @@ function MovieDetail({ movie }) {
     </div>
   );
 }
+
+MovieDetail.propTypes = {
+  movie: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    title: PropTypes.string,
+    description: PropTypes.string,
+  }).isRequired,
+};
 
 export default MovieDetail;

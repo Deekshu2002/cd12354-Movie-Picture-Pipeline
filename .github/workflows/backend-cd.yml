@@ -43,7 +43,7 @@ jobs:
         working-directory: starter/backend
     env:
       AWS_REGION: ${{ vars.AWS_REGION }}
-      ECR_REPO_URL: ${{ vars.ECR_REPO_URL }}
+      ECR_REPO_URL: ${{ vars.BACKEND_ECR_REPO_URL }}
       EKS_CLUSTER_NAME: ${{ vars.EKS_CLUSTER_NAME }}
     steps:
       - name: Check out code

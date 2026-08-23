@@ -40,7 +40,7 @@ jobs:
         working-directory: starter/frontend
     env:
       AWS_REGION: ${{ vars.AWS_REGION }}
-      ECR_REPO_URL: ${{ vars.ECR_REPO_URL }}
+      ECR_REPO_URL: ${{ vars.FRONTEND_ECR_REPO_URL }}
       EKS_CLUSTER_NAME: ${{ vars.EKS_CLUSTER_NAME }}
       REACT_APP_MOVIE_API_URL: ${{ vars.REACT_APP_MOVIE_API_URL }}
     steps:

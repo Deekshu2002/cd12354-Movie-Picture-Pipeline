@@ -1,4 +1,4 @@
-name: Frontend CI
+name: Frontend Continuous Integration
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'starter/frontend/**'
-      - '.github/workflows/frontend-ci.yml'
+      - '.github/workflows/frontend-ci.yaml'
   workflow_dispatch:
 
 jobs:
@@ -54,7 +54,7 @@ jobs:
       - name: Run tests
         run: CI=true npm test
 
-  docker-build:
+  build:
     needs: [lint, test]
     runs-on: ubuntu-latest
     defaults:
@@ -65,6 +65,19 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.14'
+          cache: npm
+          cache-dependency-path: starter/frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: CI=true npm test
 
       - name: Build frontend Docker image
         run: docker build --build-arg REACT_APP_MOVIE_API_URL="${REACT_APP_MOVIE_API_URL}" --tag mp-frontend:latest .
